@@ -1,0 +1,14 @@
+[
+ 	{ 
+ 	  "nazwa" : "pomarańcza" ,
+  	  "waga" : 0.5 ,
+  	  "opis": "świeże prosto z hiszpanii",
+		"cena": 2
+	},
+ 	{ 
+ 	 "nazwa" : "jabłko" ,
+ 	 "waga" : 1 ,
+ 	 "opis" : "świeże prosto z polski",
+		"cena": 2
+ 	}
+ ]
