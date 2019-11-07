@@ -57,7 +57,12 @@
                 </exclusion>
             </exclusions>
         </dependency>
-<!-- ++++++++++++++++++++++++++++++++++++++++++++Java Script and bootstrap ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++-->
+
+        <dependency>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-devtools</artifactId>
+        </dependency>
+        <!-- ++++++++++++++++++++++++++++++++++++++++++++Java Script and bootstrap ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++-->
         <dependency>
             <groupId>org.webjars</groupId>
             <artifactId>jquery</artifactId>

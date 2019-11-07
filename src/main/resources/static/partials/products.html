@@ -5,6 +5,12 @@
             <input type="text" class="form-control" placeholder="szukaj..." ng-model="search">
             <br>
         </div>
+
+        <div class="col-sm-4 text-right">
+            <br>
+            <a href="#!product/create" class="btn btn-success">Dodaj produkt</a>
+            <br>
+        </div>
     </div>
 
     <div ng-controller="products">
@@ -13,7 +19,9 @@
             waga : {{product.waga}} <br>
             opis :  {{product.opis}} <br>
             cena : {{product.cena | number:2}} zł / kg
-            <a href="#!product/{{$index}}" class="btn btn-default">Edytuj</a>
+            <br>
+            <a href="#!product/edit/{{$index}}" class="btn btn-primary">Edytuj</a>
+            <button ng-click="delete(product,$index)" class="btn btn-danger">Usuń produkt</button>
         </div>
     </div>
 </div>

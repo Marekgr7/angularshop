@@ -1,6 +1,6 @@
-var controllers = angular.module('controllers', ['ngRoute'] );
+var myCtrls = angular.module('myCtrls', ['ngRoute'] );
 
-controllers.controller('products',['$scope', '$filter','$http', function($scope,$filter,$http){
+myCtrls.controller('products',['$scope', '$filter','$http', function($scope,$filter,$http){
 
     // ZAPISZ NOWE DANE W BAZIE
 
@@ -15,6 +15,8 @@ controllers.controller('products',['$scope', '$filter','$http', function($scope,
     //     alert('blad');
     // });
 
+    //TODO: CONNECT WITH API
+
     $http({
         method: 'GET',
         url: 'model/produkty.json'
@@ -23,19 +25,51 @@ controllers.controller('products',['$scope', '$filter','$http', function($scope,
     }, function errorCallback(response) {
         alert('blad');
     });
+
+    $scope.delete = function(product, $index){
+        //TODO : DELETE PRODUCT USING API FROM DATABASE
+        $scope.products.splice($index , 1);
+    };
 
 }]);
 
-controllers.controller('product',['$scope', '$filter','$http', '$routeParams', function($scope,$filter,$http, $routeParams){
+myCtrls.controller('productEdit',['$scope', '$filter','$http', '$routeParams', function($scope,$filter,$http, $routeParams){
+
+    //TODO: CONNECT WITH API
 
     $http({
         method: 'GET',
         url: 'model/produkty.json'
     }).then(function successCallback(response) {
         $scope.products = response.data;
-        $scope.products = $scope.products[$routeParams.id];
+        $scope.product = $scope.products[$routeParams.id];
     }, function errorCallback(response) {
         alert('blad');
     });
+
+    $scope.saveChanges = function (product) {
+        console.log('formularz zostal przeslany' + product);
+    };
+
+}]);
+
+myCtrls.controller('productCreate',['$scope','$http', function($scope,$http){
+
+
+    //TODO : CONNECT WITH API
+
+    // $http({
+    //     method: 'GET',
+    //     url: 'model/produkty.json'
+    // }).then(function successCallback(response) {
+    //     $scope.products = response.data;
+    //     $scope.product = $scope.products[$routeParams.id];
+    // }, function errorCallback(response) {
+    //     alert('blad');
+    // });
+    //
+    // $scope.saveChanges = function (product) {
+    //     console.log('formularz zostal przeslany' + product);
+    // };
 
 }]);
