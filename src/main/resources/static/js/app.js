@@ -6,6 +6,7 @@ var app = angular.module('app', ['ngRoute','myCtrls'] );
 
 app.config(['$routeProvider','$httpProvider', function($routeProvider,$httpProvider){
 
+    //products //
     $routeProvider.when('/products', {
         controller : 'products',
         templateUrl: 'partials/products.html'
@@ -21,6 +22,22 @@ app.config(['$routeProvider','$httpProvider', function($routeProvider,$httpProvi
         templateUrl : 'partials/product-create.html'
     });
 
+    //users//
+
+    $routeProvider.when('/users', {
+        controller : 'users',
+        templateUrl : 'partials/users.html'
+    });
+
+    $routeProvider.when('/user/edit/:id', {
+        controller : 'userEdit',
+        templateUrl : 'partials/user-edit.html'
+    });
+
+    $routeProvider.when('/user/:id', {
+        controller : 'userCreate',
+        templateUrl : 'partials/user-create.html'
+    });
 
     $routeProvider.otherwise({
         redirectTo: '/home'

@@ -1,0 +1,46 @@
+<div class="container">
+    <div class="row">
+        <div class="col-sm-4">
+            <br>
+            <input type="text" class="form-control" placeholder="szukaj..." ng-model="search">
+            <br>
+        </div>
+
+        <div class="col-sm-4 text-right">
+            <br>
+            <a href="#!user/create" class="btn btn-success">Dodaj użytkownika</a>
+            <br>
+        </div>
+    </div>
+
+    <div ng-controller="users" class="row">
+        <div class="col-sm-12">
+
+            <table class="table table-hover">
+                <thead>
+                <tr>
+                    <th>Id</th>
+                    <th>Imie</th>
+                    <th>Email</th>
+                    <th>Rola</th>
+                    <th></th>
+                    <th></th>
+
+                </tr>
+                </thead>
+                <tbody>
+                <tr ng-repeat="user in users | filter : search">
+                    <td>{{$index}}</td>
+                    <td>{{user.name}}</td>
+                    <td>{{user.email}}</td>
+                    <td>{{user.role}}</td>
+                    <td> <a href="#!user/edit/{{$index}}" class="btn btn-primary">Edytuj</a></td>
+                    <td><button ng-click="delete(user,$index)" class="btn btn-danger">Usuń użytkownika</button></td>
+                </tr>
+                </tbody>
+            </table>
+
+        </div>
+
+    </div>
+</div>
