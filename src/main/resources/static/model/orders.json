@@ -1,0 +1,50 @@
+[
+  {
+    "userId": 1,
+    "name": "Adrian",
+    "email": "foo@bar.com",
+    "items":
+            [
+              {
+                "name": "Flovent GFA",
+                "desc": "precision",
+                "price": 3.32,
+                "weight": 1.69,
+                "qty": 3
+              },
+              {
+                "name": "Flovendddt GFA",
+                "desc": "precisagfesion",
+                "price": 5.32,
+                "weight": 6.69,
+                "qty": 3
+              }
+            ],
+    "total": 68.42,
+    "status": 0
+  },
+  {
+    "userId": 2,
+    "name": "marek",
+    "email": "dzik@bar.com",
+    "items":
+            [
+              {
+                "name": "Flovent GFAFF",
+                "desc": "precision",
+                "price": 3.32,
+                "weight": 1.69,
+                "qty": 3
+              },
+              {
+                "name": "Flovendddt GFA",
+                "desc": "precisagfesion",
+                "price": 5.32,
+                "weight": 6.69,
+                "qty": 3
+              }
+            ],
+    "total": 68.42,
+    "status": 1
+  }
+]

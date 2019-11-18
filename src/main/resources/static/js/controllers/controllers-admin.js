@@ -1,13 +1,7 @@
-var myCtrls = angular.module('myCtrls', ['ngRoute'] );
 
-myCtrls.controller('navigation',['$scope', '$location', function($scope,$location) {
+var controllersAdmin = angular.module('controllersAdmin', ['ngRoute'] );
 
-    console.log($location.path());
-
-}]);
-
-
-myCtrls.controller('products',['$scope', '$filter','$http', function($scope,$filter,$http){
+controllersAdmin.controller('products',['$scope', '$filter','$http', function($scope,$filter,$http){
 
     // ZAPISZ NOWE DANE W BAZIE
 
@@ -40,7 +34,7 @@ myCtrls.controller('products',['$scope', '$filter','$http', function($scope,$fil
 
 }]);
 
-myCtrls.controller('productEdit',['$scope', '$filter','$http', '$routeParams', function($scope,$filter,$http, $routeParams){
+controllersAdmin.controller('productEdit',['$scope', '$filter','$http', '$routeParams', function($scope,$filter,$http, $routeParams){
 
     //TODO: CONNECT WITH API
 
@@ -60,7 +54,7 @@ myCtrls.controller('productEdit',['$scope', '$filter','$http', '$routeParams', f
 
 }]);
 
-myCtrls.controller('productCreate',['$scope','$http', function($scope,$http){
+controllersAdmin.controller('productCreate',['$scope','$http', function($scope,$http){
 
 
     //TODO : CONNECT WITH API
@@ -81,7 +75,7 @@ myCtrls.controller('productCreate',['$scope','$http', function($scope,$http){
 
 }]);
 
-myCtrls.controller('users',['$scope','$http', '$routeParams', function($scope,$http, $routeParams){
+controllersAdmin.controller('users',['$scope','$http', '$routeParams', function($scope,$http, $routeParams){
 
     //TODO: CONNECT WITH API
 
@@ -104,7 +98,7 @@ myCtrls.controller('users',['$scope','$http', '$routeParams', function($scope,$h
 }]);
 
 
-myCtrls.controller('userEdit',['$scope', '$filter','$http', '$routeParams', function($scope,$filter,$http, $routeParams){
+controllersAdmin.controller('userEdit',['$scope', '$filter','$http', '$routeParams', function($scope,$filter,$http, $routeParams){
 
     //TODO: CONNECT WITH API
 
@@ -124,7 +118,7 @@ myCtrls.controller('userEdit',['$scope', '$filter','$http', '$routeParams', func
 
 }]);
 
-myCtrls.controller('userCreate',['$scope','$http', function($scope,$http){
+controllersAdmin.controller('userCreate',['$scope','$http', function($scope,$http){
 
 
     //TODO : CONNECT WITH API
@@ -145,3 +139,33 @@ myCtrls.controller('userCreate',['$scope','$http', function($scope,$http){
 
 }]);
 
+
+controllersAdmin.controller('orders',['$scope','$http', '$routeParams', function($scope,$http, $routeParams){
+
+    //TODO: CONNECT WITH API
+
+    $http({
+        method: 'GET',
+        url: 'model/orders.json'
+    }).then(function successCallback(response) {
+        $scope.orders = response.data;
+    }, function errorCallback(response) {
+        alert('blad');
+    });
+
+
+    //TODO : DELETE ORDERS USING API FROM DATABASE
+
+    $scope.delete = function(order, $index){
+        $scope.orders.splice($index , 1);
+    };
+
+    $scope.changeStatus = function(order, $index){
+        if(order.status == 0){
+            order.status = 1;
+        }
+        console.log(order.status);
+    };
+
+
+}]);

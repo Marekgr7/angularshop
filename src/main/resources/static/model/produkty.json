@@ -1,14 +1,14 @@
 [
  	{ 
- 	  "nazwa" : "pomarańcza" ,
-  	  "waga" : 0.5 ,
-  	  "opis": "świeże prosto z hiszpanii",
-		"cena": 2
+ 	  "name" : "pomarańcza" ,
+  	  "weight" : 0.5 ,
+  	  "desc": "świeże prosto z hiszpanii",
+		"price": 2
 	},
  	{ 
- 	 "nazwa" : "jabłko" ,
- 	 "waga" : 1 ,
- 	 "opis" : "świeże prosto z polski",
-		"cena": 2
+ 	 "name" : "jabłko" ,
+ 	 "weight" : 1 ,
+ 	 "desc" : "świeże prosto z polski",
+		"price": 2
  	}
  ]

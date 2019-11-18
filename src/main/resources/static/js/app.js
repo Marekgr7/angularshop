@@ -2,45 +2,68 @@
 'use strict';
 
 
-var app = angular.module('app', ['ngRoute','myCtrls'] );
+var app = angular.module('app', ['ngRoute','controllerNavigation','controllersAdmin','controllersSite'] );
 
 app.config(['$routeProvider','$httpProvider', function($routeProvider,$httpProvider){
 
-    //products //
-    $routeProvider.when('/products', {
+    //Admin products //
+    $routeProvider.when('/admin/products', {
         controller : 'products',
-        templateUrl: 'partials/products.html'
+        templateUrl: 'partials/admin/products.html'
     });
 
-    $routeProvider.when('/product/edit/:id', {
+    $routeProvider.when('/admin/product/edit/:id', {
         controller : 'productEdit',
-        templateUrl : 'partials/product-edit.html'
+        templateUrl : 'partials/admin/product-edit.html'
+    });
+
+    $routeProvider.when('/admin/product/:id', {
+        controller : 'productCreate',
+        templateUrl : 'partials/admin/product-create.html'
+    });
+
+    //Admin users//
+
+    $routeProvider.when('/admin/users', {
+        controller : 'users',
+        templateUrl : 'partials/admin/users.html'
+    });
+
+    $routeProvider.when('/admin/user/edit/:id', {
+        controller : 'userEdit',
+        templateUrl : 'partials/admin/user-edit.html'
+    });
+
+    $routeProvider.when('/admin/user/:id', {
+        controller : 'userCreate',
+        templateUrl : 'partials/admin/user-create.html'
+    });
+
+
+    //Admin orders//
+
+    $routeProvider.when('/admin/orders', {
+        controller : 'orders',
+        templateUrl : 'partials/admin/orders.html'
+    });
+
+    //Site Products//
+
+    $routeProvider.when('/products', {
+        controller : 'siteProducts',
+        templateUrl: 'partials/site/products.html'
     });
 
     $routeProvider.when('/product/:id', {
-        controller : 'productCreate',
-        templateUrl : 'partials/product-create.html'
+        controller : 'siteProduct',
+        templateUrl : 'partials/site/product.html'
     });
 
-    //users//
 
-    $routeProvider.when('/users', {
-        controller : 'users',
-        templateUrl : 'partials/users.html'
-    });
-
-    $routeProvider.when('/user/edit/:id', {
-        controller : 'userEdit',
-        templateUrl : 'partials/user-edit.html'
-    });
-
-    $routeProvider.when('/user/:id', {
-        controller : 'userCreate',
-        templateUrl : 'partials/user-create.html'
-    });
+    //default//
 
     $routeProvider.otherwise({
-        redirectTo: '/home'
+        redirectTo: '/products'
     });
 
 }]);
