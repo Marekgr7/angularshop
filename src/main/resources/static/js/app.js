@@ -2,7 +2,7 @@
 'use strict';
 
 
-var app = angular.module('app', ['ngRoute','controllerNavigation','controllersAdmin','controllersSite'] );
+var app = angular.module('app', ['ngRoute','angular-storage','controllerNavigation','controllersAdmin','controllersSite','myServices'] );
 
 app.config(['$routeProvider','$httpProvider', function($routeProvider,$httpProvider){
 
@@ -57,6 +57,15 @@ app.config(['$routeProvider','$httpProvider', function($routeProvider,$httpProvi
     $routeProvider.when('/product/:id', {
         controller : 'siteProduct',
         templateUrl : 'partials/site/product.html'
+    });
+
+
+
+    //Cart//
+
+    $routeProvider.when('/cart', {
+        controller : 'cartCtrl',
+        templateUrl: 'partials/site/cart.html'
     });
 
 

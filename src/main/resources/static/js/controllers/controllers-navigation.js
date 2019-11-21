@@ -1,6 +1,6 @@
 var controllerNavigation = angular.module('controllerNavigation', ['ngRoute'] );
 
-controllerNavigation.controller( 'navigation' , [ '$scope' , '$location' , function( $scope , $location ){
+controllerNavigation.controller( 'navigation' , [ '$scope' , '$location','cartSrv' , function( $scope , $location , cartSrv){
 
     $scope.navigation = function () {
         if ( /^\/admin/.test( $location.path() ) )
@@ -13,7 +13,6 @@ controllerNavigation.controller( 'navigation' , [ '$scope' , '$location' , funct
     $scope.isActive = function ( path ) {
         return $location.path() === path;
     };
-
 }]);
 
 
