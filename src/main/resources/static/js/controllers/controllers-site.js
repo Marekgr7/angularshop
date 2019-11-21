@@ -134,6 +134,24 @@ controllersSite.controller('cartCtrl',['$scope','$http','cartSrv', function($sco
 
     $scope.$watch(function () {
         cartSrv.update($scope.cart);
-    })
+    });
+
+}]);
+
+//orders controllers
+
+controllersSite.controller('siteOrder',['$scope','$http', '$routeParams', function($scope,$http, $routeParams){
+
+    //TODO: CONNECT WITH API
+
+    $http({
+        method: 'GET',
+        url: 'model/orders.json'
+    }).then(function successCallback(response) {
+        $scope.orders = response.data;
+    }, function errorCallback(response) {
+        alert('blad');
+    });
+
 
 }]);

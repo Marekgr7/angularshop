@@ -169,3 +169,26 @@ controllersAdmin.controller('orders',['$scope','$http', '$routeParams', function
 
 
 }]);
+
+controllersAdmin.controller('login', ['$scope', '$http', function ($scope , $http) {
+    //TODO : uwierzytelnic z  baza danych
+    $scope.input = {};
+
+    $scope.formSubmit = function () {
+        $scope.errors.login = false;
+        console.log($scope.input);
+    }
+}]);
+
+controllersAdmin.controller('register', ['$scope', '$http', function ($scope , $http) {
+    //TODO : uwierzytelnic z  baza danych
+
+    $scope.input = {};
+
+    $scope.formSubmit = function () {
+        $scope.errors.login = true;
+        console.log($scope.input);
+    }
+
+
+}]);

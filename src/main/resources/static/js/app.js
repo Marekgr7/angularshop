@@ -68,6 +68,25 @@ app.config(['$routeProvider','$httpProvider', function($routeProvider,$httpProvi
         templateUrl: 'partials/site/cart.html'
     });
 
+    //Orders//
+
+    $routeProvider.when('/orders', {
+        controller: 'siteOrder',
+        templateUrl: 'partials/site/orders.html'
+    });
+
+    //Login & Register //
+
+    $routeProvider.when('/login', {
+        controller: 'login',
+        templateUrl: 'partials/site/login.html'
+    });
+
+    $routeProvider.when('/register', {
+        controller: 'register',
+        templateUrl: 'partials/site/register.html'
+    });
+
 
     //default//
 
