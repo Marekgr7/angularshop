@@ -8,7 +8,6 @@
 
         <div class="col-sm-8 text-right">
             <br>
-            <a href="#!admin/user/create" class="btn btn-success float-right">Dodaj użytkownika</a>
             <br>
         </div>
     </div>
@@ -19,7 +18,6 @@
             <table class="table table-hover">
                 <thead>
                 <tr>
-                    <th>Id</th>
                     <th>Imie</th>
                     <th>Email</th>
                     <th>Rola</th>
@@ -30,12 +28,11 @@
                 </thead>
                 <tbody>
                 <tr ng-repeat="user in users | filter : search">
-                    <td>{{$index}}</td>
                     <td>{{user.name}}</td>
-                    <td>{{user.email}}</td>
+                    <td>{{user.username}}</td>
                     <td>{{user.role}}</td>
                     <td> <a href="#!admin/user/edit/{{$index}}" class="btn btn-primary">Edytuj</a></td>
-                    <td><button ng-click="delete(user,$index)" class="btn btn-danger">Usuń użytkownika</button></td>
+                    <td><button ng-click="delete(user, user.id, $index)" class="btn btn-danger">Usuń użytkownika</button></td>
                 </tr>
                 </tbody>
             </table>

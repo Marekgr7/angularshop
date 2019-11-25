@@ -30,6 +30,13 @@ public class User {
 
     public User() {}
 
+    public User(String name, String username, String password, String passwordConfirm) {
+        this.name = name;
+        this.username = username;
+        this.password = password;
+        this.passwordConfirm = passwordConfirm;
+    }
+
     public Set<Role> getRoles() {
         return roles;
     }

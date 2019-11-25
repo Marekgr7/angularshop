@@ -12,12 +12,12 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/products")
-public class ProductController {
+public class ProductRestController {
 
     private ProductService productService;
 
     @Autowired
-    public ProductController(ProductService productService){
+    public ProductRestController(ProductService productService){
         this.productService = productService;
     }
 

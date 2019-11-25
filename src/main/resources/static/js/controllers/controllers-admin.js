@@ -100,23 +100,31 @@ controllersAdmin.controller('productCreate',['$scope','$http', function($scope,$
 
 controllersAdmin.controller('users',['$scope','$http', '$routeParams', function($scope,$http, $routeParams){
 
-    //TODO: CONNECT WITH API
-
     $http({
         method: 'GET',
-        url: 'model/users.json'
+        url: 'api/users/all'
     }).then(function successCallback(response) {
         $scope.users = response.data;
     }, function errorCallback(response) {
         alert('blad');
     });
 
+    $scope.delete = function (user , id ,$index) {
 
-    //TODO : DELETE PRODUCT USING API FROM DATABASE
-
-    $scope.delete = function(user, $index){
         $scope.users.splice($index , 1);
-    };
+
+        $http({
+            method: 'DELETE',
+            url: 'api/users',
+            params : {
+                id : id
+            }
+        }).then(function successCallback(response) {
+            alert("Użytkownik został usunięty");
+        }, function errorCallback(response) {
+            alert("error - nie udalo się usunąć użytkownika");
+        });
+    }
 
 }]);
 
@@ -179,6 +187,7 @@ controllersAdmin.controller('orders',['$scope','$http', '$routeParams', function
 
 
 }]);
+// LOGIN AND REGISTER CONTROLLERS
 
 controllersAdmin.controller('login', ['$scope', '$http', function ($scope , $http) {
     //TODO : uwierzytelnic z  baza danych
