@@ -11,7 +11,9 @@
 
     <div ng-controller="products">
         <div class="alert alert-info" ng-repeat="product in products | filter : search">
-            <span class="text-capitalize"> <h1>nazwa : {{product.name}}</h1></span> <br>
+            <span class="text-capitalize"> <h2>nazwa : {{product.name}}</h2></span> <br>
+            {{product.description}} <br>
+            {{product.weight}} zł/kg <br>
             cena : {{product.price | number:2}} zł / kg
             <br>
             <a href="#!product/{{$index}}" class="btn btn-primary">Szczegóły</a>

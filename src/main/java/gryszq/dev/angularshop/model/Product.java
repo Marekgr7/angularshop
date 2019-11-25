@@ -11,7 +11,7 @@ import javax.persistence.Id;
 @Getter
 @Setter
 @Entity
-public class Products {
+public class Product {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -25,9 +25,9 @@ public class Products {
 
     private double price;
 
-    public Products(){};
+    public Product(){};
 
-    public Products(String name, double weight, String description, double price) {
+    public Product(String name, double weight, String description, double price) {
         this.name = name;
         this.weight = weight;
         this.description = description;

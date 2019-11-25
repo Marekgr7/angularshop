@@ -12,7 +12,7 @@ app.config(['$routeProvider','$httpProvider', function($routeProvider,$httpProvi
         templateUrl: 'partials/admin/products.html'
     });
 
-    $routeProvider.when('/admin/product/edit/:id', {
+    $routeProvider.when('/admin/product/edit', {
         controller : 'productEdit',
         templateUrl : 'partials/admin/product-edit.html'
     });

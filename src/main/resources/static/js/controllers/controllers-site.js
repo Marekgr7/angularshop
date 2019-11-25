@@ -8,11 +8,11 @@ controllersAdmin.controller('siteProducts',['$scope', '$filter','$http','cartSrv
 
     $http({
         method: 'GET',
-        url: 'model/produkty.json'
+        url: 'api/products/all'
     }).then(function successCallback(response) {
         $scope.products = response.data;
     }, function errorCallback(response) {
-        alert('blad');
+        console.log("blad");
     });
 
 
@@ -28,7 +28,7 @@ controllersSite.controller('siteProduct',['$scope', '$filter','$http', '$routePa
 
     $http({
         method: 'GET',
-        url: 'model/produkty.json'
+        url: 'api/products/all'
     }).then(function successCallback(response) {
         $scope.products = response.data;
         $scope.product = $scope.products[$routeParams.id];

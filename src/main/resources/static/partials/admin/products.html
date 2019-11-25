@@ -17,11 +17,11 @@
         <div class="alert alert-info" ng-repeat="product in products | filter : search">
             <span class="text-capitalize"> nazwa : {{product.name}}</span> <br>
             waga : {{product.weight}} <br>
-            opis :  {{product.desc}} <br>
+            opis :  {{product.description}} <br>
             cena : {{product.price | number:2}} zł / kg
             <br>
-            <a href="#!admin/product/edit/{{$index}}" class="btn btn-primary">Edytuj</a>
-            <button ng-click="delete(product,$index)" class="btn btn-danger">Usuń produkt</button>
+            <a href="#!admin/product/edit" ng-click="getProduct(product.id)" class="btn btn-primary">Edytuj</a>
+            <button ng-click="delete(product,product.id,$index)" class="btn btn-danger">Usuń produkt</button>
         </div>
     </div>
 </div>

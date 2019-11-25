@@ -3,33 +3,32 @@ var controllersAdmin = angular.module('controllersAdmin', ['ngRoute'] );
 
 controllersAdmin.controller('products',['$scope', '$filter','$http', function($scope,$filter,$http){
 
-    // ZAPISZ NOWE DANE W BAZIE
-
-    // POBIERZ DANE Z BAZY I WYSWIETL JE W WIDOKU
-
-
-    // $http.get('model/produkty.json').
-    // success(function(data){
-    //     $scope.products = data;
-    // }).
-    // error(function(data){
-    //     alert('blad');
-    // });
-
-    //TODO: CONNECT WITH API
-
     $http({
         method: 'GET',
-        url: 'model/produkty.json'
+        url: 'api/products/all'
     }).then(function successCallback(response) {
         $scope.products = response.data;
     }, function errorCallback(response) {
-        alert('blad');
+        console.log("error");
     });
 
-    $scope.delete = function(product, $index){
-        //TODO : DELETE PRODUCT USING API FROM DATABASE
-        $scope.products.splice($index , 1);
+    $scope.delete = function(product, id,$index) {
+
+         $scope.products.splice($index, 1);
+
+        $http({
+            method: 'DELETE',
+            url: 'api/products',
+            params: {
+                id: id
+            }
+        }).then(function successCallback(response) {
+            console.log("success - produkt usuniety")
+        }, function errorCallback(response) {
+            console.log("error");
+        });
+
+
     };
 
 }]);
@@ -38,40 +37,64 @@ controllersAdmin.controller('productEdit',['$scope', '$filter','$http', '$routeP
 
     //TODO: CONNECT WITH API
 
-    $http({
-        method: 'GET',
-        url: 'model/produkty.json'
-    }).then(function successCallback(response) {
-        $scope.products = response.data;
-        $scope.product = $scope.products[$routeParams.id];
-    }, function errorCallback(response) {
-        alert('blad');
-    });
+
+   $scope.getProduct = function(id){
+       $http({
+           method: 'GET',
+           url: 'api/products',
+           params : {
+               id : id
+           }
+       }).then(function success(response) {
+           $scope.product = response.data;
+       }, function error(response){
+           console.log("nie udalo sie pobrac produktu");
+       });
+    };
 
     $scope.saveChanges = function (product) {
-        console.log('formularz zostal przeslany' + product);
+        console.log(product);
+        $http({
+            method: 'POST',
+            url: 'api/products',
+            data : product
+        }).then(function successCallback(response) {
+            alert("Produkt został dodany");
+            console.log("success - produkt dodany");
+        }, function errorCallback(response) {
+            console.log("error - nie udało się dodać produktu");
+        });
     };
 
 }]);
 
 controllersAdmin.controller('productCreate',['$scope','$http', function($scope,$http){
 
+    $scope.createProduct = function (product) {
 
-    //TODO : CONNECT WITH API
+        console.log(product);
+        $http({
+            method: 'POST',
+            url: 'api/products',
+            data : product
+        }).then(function successCallback(response) {
+            alert("Produkt został dodany");
+            console.log("success - produkt dodany");
+        }, function errorCallback(response) {
+            console.log("error - nie udało się dodać produktu");
+        });
 
-    // $http({
-    //     method: 'GET',
-    //     url: 'model/produkty.json'
-    // }).then(function successCallback(response) {
-    //     $scope.products = response.data;
-    //     $scope.product = $scope.products[$routeParams.id];
-    // }, function errorCallback(response) {
-    //     alert('blad');
-    // });
-    //
-    // $scope.saveChanges = function (product) {
-    //     console.log('formularz zostal przeslany' + product);
-    // };
+        // $http.post('api/products', product).then(function (response) {
+        //
+        //     console.log("produkt zostal dodany");
+        //
+        // }, function (response) {
+        //
+        //     console.log("error - nie udalo sie dodac produktu")
+        //
+        // });
+
+    }
 
 }]);
 
@@ -123,19 +146,6 @@ controllersAdmin.controller('userCreate',['$scope','$http', function($scope,$htt
 
     //TODO : CONNECT WITH API
 
-    // $http({
-    //     method: 'GET',
-    //     url: 'model/produkty.json'
-    // }).then(function successCallback(response) {
-    //     $scope.products = response.data;
-    //     $scope.product = $scope.products[$routeParams.id];
-    // }, function errorCallback(response) {
-    //     alert('blad');
-    // });
-    //
-    // $scope.saveChanges = function (product) {
-    //     console.log('formularz zostal przeslany' + product);
-    // };
 
 }]);
 
