@@ -3,13 +3,10 @@ package gryszq.dev.angularshop.restController;
 import gryszq.dev.angularshop.model.User;
 import gryszq.dev.angularshop.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-
+import java.util.Optional;
 
 
 @RestController
@@ -34,4 +31,14 @@ public class UserRestController {
         userService.deleteUser(id);
     }
 
+    @GetMapping
+    public Optional<User> getUserById(Long id){
+        return userService.getUserById(id);
+    }
+
+    @PostMapping
+    public void saveUser(@RequestBody User user){
+
+        userService.save(user);
+    }
 }

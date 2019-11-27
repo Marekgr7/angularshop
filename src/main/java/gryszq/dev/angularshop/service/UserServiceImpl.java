@@ -13,6 +13,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.HashSet;
 import java.util.List;
+import java.util.Optional;
 import java.util.Set;
 
 @Service
@@ -30,8 +31,13 @@ public class UserServiceImpl implements UserService {
     @Override
     public void save(User user){
         user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
-        user.setRoles(new HashSet<>(roleRepository.findAll()));
+        user.getRoles().add(roleRepository.findByName("użytkownik"));
         userRepository.save(user);
+    }
+
+    @Override
+    public Optional<User> getUserById(Long id){
+        return userRepository.findById(id);
     }
 
     @Override
@@ -51,7 +57,20 @@ public class UserServiceImpl implements UserService {
 
     @EventListener(ApplicationReadyEvent.class)
     public void fillDB(){
-        save(new User("marek", "Marekgr7@gmail.com", "dzikdzik", "dzikdzik"));
-        save(new User("paulina", "Paulina@gmail.com", "dzikdzik", "dzikdzik"));
+
+        Role admin = new Role("admin");
+        Role normalUser = new Role("użytkownik");
+
+        roleRepository.save(admin);
+        roleRepository.save(normalUser);
+
+        User user1 = new User("marek", "Marekgr7@gmail.com", bCryptPasswordEncoder.encode("1234"), "dzikdzik");
+        User user2 = new User("paulina", "Paulina@gmail.com", bCryptPasswordEncoder.encode("1234"), "dzikdzik");
+
+        user1.addRole(admin);
+        user2.addRole(normalUser);
+
+        userRepository.save(user1);
+        userRepository.save(user2);
     }
 }

@@ -40,7 +40,6 @@ public class ProductService {
         productRepository.deleteById(id);
     }
 
-
     @EventListener(ApplicationReadyEvent.class)
     public void fillDB(){
         productRepository.save(new Product("jablo",10,"prosto z polski",15));

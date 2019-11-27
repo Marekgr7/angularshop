@@ -27,44 +27,44 @@ controllersAdmin.controller('products',['$scope', '$filter','$http', function($s
         }, function errorCallback(response) {
             console.log("error");
         });
+    };
 
-
+    $scope.getProduct = function(id){
+        controllersAdmin.productId = id;
     };
 
 }]);
 
 controllersAdmin.controller('productEdit',['$scope', '$filter','$http', '$routeParams', function($scope,$filter,$http, $routeParams){
 
-    //TODO: CONNECT WITH API
+    console.log("dziala " + controllersAdmin.productId);
 
-
-   $scope.getProduct = function(id){
-       $http({
+        $http({
            method: 'GET',
            url: 'api/products',
            params : {
-               id : id
+               id : controllersAdmin.productId
            }
        }).then(function success(response) {
            $scope.product = response.data;
        }, function error(response){
            console.log("nie udalo sie pobrac produktu");
        });
-    };
 
-    $scope.saveChanges = function (product) {
-        console.log(product);
-        $http({
-            method: 'POST',
-            url: 'api/products',
-            data : product
-        }).then(function successCallback(response) {
-            alert("Produkt został dodany");
-            console.log("success - produkt dodany");
-        }, function errorCallback(response) {
-            console.log("error - nie udało się dodać produktu");
-        });
-    };
+        $scope.saveChanges = function (product) {
+
+            console.log("funkcja save ");
+            $http({
+                method: 'POST',
+                url: 'api/products',
+                data : product
+            }).then(function successCallback(response) {
+                alert("Produkt został zmodyfikowany");
+                console.log("success - produkt dodany");
+            }, function errorCallback(response) {
+                console.log("error - nie udało się zmodyfikowac produktu");
+            });
+        }
 
 }]);
 
@@ -126,36 +126,36 @@ controllersAdmin.controller('users',['$scope','$http', '$routeParams', function(
         });
     }
 
+    $scope.getUser = function(id){
+        controllersAdmin.userId = id;
+    }
+
 }]);
 
 
 controllersAdmin.controller('userEdit',['$scope', '$filter','$http', '$routeParams', function($scope,$filter,$http, $routeParams){
 
-    //TODO: CONNECT WITH API
 
-    $http({
-        method: 'GET',
-        url: 'model/users.json'
-    }).then(function successCallback(response) {
-        $scope.users = response.data;
-        $scope.user = $scope.users[$routeParams.id];
-    }, function errorCallback(response) {
-        alert('blad');
-    });
-
-    $scope.saveChanges = function (user) {
+    $scope.saveChanges = function(user) {
         console.log('formularz zostal przeslany' + user);
     };
 
+    $scope.newUser={};
+
+    $http({
+        method: 'GET',
+        url: 'api/users',
+        params : {
+            id : controllersAdmin.userId
+        }
+    }).then(function success(response) {
+        $scope.user = response.data;
+    }, function error(response){
+        console.log("nie udalo sie pobrac produktu");
+    });
+
 }]);
 
-controllersAdmin.controller('userCreate',['$scope','$http', function($scope,$http){
-
-
-    //TODO : CONNECT WITH API
-
-
-}]);
 
 
 controllersAdmin.controller('orders',['$scope','$http', '$routeParams', function($scope,$http, $routeParams){
@@ -190,24 +190,36 @@ controllersAdmin.controller('orders',['$scope','$http', '$routeParams', function
 // LOGIN AND REGISTER CONTROLLERS
 
 controllersAdmin.controller('login', ['$scope', '$http', function ($scope , $http) {
-    //TODO : uwierzytelnic z  baza danych
-    $scope.input = {};
+    $scope.user = {};
 
-    $scope.formSubmit = function () {
-        $scope.errors.login = false;
-        console.log($scope.input);
+    $scope.formSubmit = function (user) {
+
+            $http({
+                method: 'POST',
+                data: user
+            });
     }
 }]);
 
 controllersAdmin.controller('register', ['$scope', '$http', function ($scope , $http) {
     //TODO : uwierzytelnic z  baza danych
 
-    $scope.input = {};
+    $scope.user = {};
 
-    $scope.formSubmit = function () {
-        $scope.errors.login = true;
-        console.log($scope.input);
+    $scope.formSubmit = function (user) {
+
+        console.log(user);
+
+        $http({
+            method: 'POST',
+            url: 'api/users',
+            data : user
+        }).then(function successCallback(response) {
+            alert("Produkt został dodany");
+            console.log("Zostałeś zarejestrowany !");
+        }, function errorCallback(response) {
+            console.log("error - nie udało się dodać produktu");
+        });
     }
-
 
 }]);

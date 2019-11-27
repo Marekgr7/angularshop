@@ -7,29 +7,29 @@
                 <article class="card-body">
                     <a href="#!login" class="float-right btn btn-outline-primary">Zaloguj się</a>
                     <h4 class="card-title mb-4 mt-1">Rejestracja</h4>
-                    <form ng-submit="formSubmit()">
+                    <form ng-submit="formSubmit(user)">
 
-                        <div class="form-group">
-                            <alert ng-if="!errors.login" class="alert alert-danger">Błędne Login lub hasło</alert>
-                        </div>
+<!--                        <div class="form-group">-->
+<!--                            <alert ng-if="!errors.login" class="alert alert-danger">Błędne Login lub hasło</alert>-->
+<!--                        </div>-->
 
                         <div class="form-group">
                             <label>Imię:</label>
-                            <input name="" class="form-control" placeholder="Email" type="email" ng-model="input.name">
+                            <input name="" class="form-control" placeholder="Email" type="text" ng-model="user.name">
                         </div> <!-- form-group// -->
 
                         <div class="form-group">
                             <label>Email</label>
-                            <input name="" class="form-control" placeholder="Email" type="email" ng-model="input.email">
+                            <input name="" class="form-control" placeholder="Email" type="email" ng-model="user.username">
                         </div> <!-- form-group// -->
                         <div class="form-group">
                             <label>Twoje hasło</label>
-                            <input class="form-control" placeholder="******" type="password" ng-model="input.password">
+                            <input class="form-control" placeholder="******" type="password" ng-model="user.password">
                         </div> <!-- form-group// -->
 
                         <div class="form-group">
                             <label>Powtórz hasło</label>
-                            <input class="form-control" placeholder="******" type="password" ng-model="input.passconf">
+                            <input class="form-control" placeholder="******" type="password" ng-model="user.passconf">
                         </div> <!-- form-group// -->
 
                         <div class="form-group">

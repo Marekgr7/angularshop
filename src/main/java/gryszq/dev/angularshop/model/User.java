@@ -1,10 +1,11 @@
 package gryszq.dev.angularshop.model;
 
 import lombok.Data;
-import lombok.Getter;
-import lombok.Setter;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 @Data
@@ -14,6 +15,7 @@ public class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id_user")
     private Long id;
 
     private String name;
@@ -25,10 +27,21 @@ public class User {
     @Transient
     private String passwordConfirm;
 
-    @ManyToMany
-    private Set<Role> roles;
+    @ManyToMany(fetch = FetchType.EAGER)
+    private Set<Role> roles = new HashSet<>();
+
+    @OneToMany
+    private List<Order> order_list = new ArrayList<>();
 
     public User() {}
+
+    public User(String name, String username, String password, String passwordConfirm, Set<Role> roles) {
+        this.name = name;
+        this.username = username;
+        this.password = password;
+        this.passwordConfirm = passwordConfirm;
+        this.roles = roles;
+    }
 
     public User(String name, String username, String password, String passwordConfirm) {
         this.name = name;
@@ -77,11 +90,27 @@ public class User {
         this.roles = roles;
     }
 
+    public void addRole(Role role){
+        roles.add(role);
+    }
+
     public String getPasswordConfirm() {
         return passwordConfirm;
     }
 
     public void setPasswordConfirm(String passwordConfirm) {
         this.passwordConfirm = passwordConfirm;
+    }
+
+    public List<Order> getOrder_list() {
+        return order_list;
+    }
+
+    public void setOrder_list(List<Order> order_list) {
+        this.order_list = order_list;
+    }
+
+    public void addOrder(Order order){
+        this.order_list.add(order);
     }
 }

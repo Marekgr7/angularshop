@@ -129,6 +129,7 @@ controllersSite.controller('cartCtrl',['$scope','$http','cartSrv', function($sco
         //TODO: zapisz zamowienie do bazy danych
 
         $event.preventDefault();
+
         $('#paypalForm').submit();
     };
 

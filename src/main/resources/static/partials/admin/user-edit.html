@@ -1,34 +1,42 @@
-<form ng-submit="saveChanges(user)">
+<form ng-submit="">
     <div class="container">
         <div class="row">
             <div class="col-sm-6">
                 <br>
                 <div class="form-group">
-                    <label>Nazwa użytkownika</label>
-                    <input type="text" class="form-control" ng-model="user.name">
+                    <label>Stara nazwa użytkownika: </label>
+                        <label>{{user.name}}</label> <br>
+                    <input type="text" class="form-control" ng-model="newUser.name" placeholder="{{user.name}}">
                 </div>
 
                 <div class="form-group">
-                    <label>Email:</label>
-                    <input type="text" class="form-control" ng-model="user.email">
+                    <label>Stary mail użytkownika: </label>
+                    <label>{{user.username}}</label> <br>
+                    <input type="text" class="form-control" ng-model="newUser.username" placeholder="{{user.username}}">
                 </div>
 
 
                 <div class="form-group">
                     <label>Nowe Hasło:</label>
-                    <input type="password" class="form-control" ng-model="product.password">
+                    <input type="password" class="form-control" ng-model="newUser.password">
                 </div>
 
                 <div class="form-group">
                     <label>Powtórz Hasło:</label>
-                    <input type="password" class="form-control" ng-model="product.passconf">
+                    <input type="password" class="form-control" ng-model="newUser.passconf">
                 </div>
 
                 <div class="form-group">
                     <label>Rola</label>
-                    <select class="form-control" ng-model = "user.role">
-                        <option value="user">user</option>
-                        <option value="admin">admin</option>
+                    <ul ng-repeat="role in user.roles">
+                        <li>
+                            {{role.name}}
+                        </li>
+                    </ul>
+
+                    <select class="form-control" ng-model = "user.roles">
+                        <option value="user">admin</option>
+                        <option value="admin">użytkownik</option>
                     </select>
                 </div>
 

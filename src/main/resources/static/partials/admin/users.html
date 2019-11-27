@@ -30,8 +30,23 @@
                 <tr ng-repeat="user in users | filter : search">
                     <td>{{user.name}}</td>
                     <td>{{user.username}}</td>
-                    <td>{{user.role}}</td>
-                    <td> <a href="#!admin/user/edit/{{$index}}" class="btn btn-primary">Edytuj</a></td>
+<!--                    <td>-->
+<!--                        <table>-->
+<!--                            <tr ng-repeat="role in roles">-->
+<!--                                <tbody>-->
+<!--                                    <td>{{role.name}}</td>-->
+<!--                                </tbody>-->
+<!--                            </tr>-->
+<!--                        </table>-->
+<!--                    </td>-->
+                    <td>
+                        <ul ng-repeat="role in user.roles">
+                            <li>
+                                {{role.name}}
+                            </li>
+                        </ul>
+                    </td>
+                    <td> <a href="#!admin/user/edit/{{$index}}" ng-click="getUser(user.id)" class="btn btn-primary">Edytuj</a></td>
                     <td><button ng-click="delete(user, user.id, $index)" class="btn btn-danger">Usuń użytkownika</button></td>
                 </tr>
                 </tbody>
