@@ -2,9 +2,9 @@ var myServices = angular.module('myServices',[]);
 
 myServices.factory('cartSrv',['store',function ( store ) {
 
-    new function() {
-     console.log('konstruktor');
-    };
+    // new function() {
+    //  console.log('konstruktor');
+    // };
 
     if(store.get('cart')) {
         var cart = store.get('cart');
@@ -24,6 +24,7 @@ myServices.factory('cartSrv',['store',function ( store ) {
         }
 
         var addNew = true;
+
         angular.forEach( cart , function (value, key) {
 
             if(value.name == product.name){
@@ -56,4 +57,20 @@ myServices.factory('cartSrv',['store',function ( store ) {
     };
 
     return cart;
+}]);
+
+myServices.service('usernameSrv',['$http',function ($http) {
+
+    this.setUsername = function (usernameToSet) {
+
+        $http({
+            method: 'POST',
+            url: 'api/order/setusername',
+            data : usernameToSet
+        }).then(function successCallback(response) {
+            console.log("success - username został przesłany");
+        }, function errorCallback(response) {
+            console.log(response.err);
+        });
+    }
 }]);

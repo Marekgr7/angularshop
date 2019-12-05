@@ -3,6 +3,10 @@ package gryszq.dev.angularshop.model;
 import lombok.Data;
 
 import javax.persistence.*;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.Size;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -18,10 +22,13 @@ public class User {
     @Column(name = "id_user")
     private Long id;
 
+    @NotEmpty(message = "Proszę podaj swoję imię..")
     private String name;
 
+    @Email(message = "Wprowadź poprawny adres mailowy..")
     private String username;
 
+//    @Size(min = 3 , max = 15, message = "Hasło musi mieć od 4 do 15 znaków..")
     private String password;
 
     @Transient
@@ -30,10 +37,26 @@ public class User {
     @ManyToMany(fetch = FetchType.EAGER)
     private Set<Role> roles = new HashSet<>();
 
-    @OneToMany
+    @OneToMany(fetch = FetchType.LAZY)
     private List<Order> order_list = new ArrayList<>();
 
     public User() {}
+
+    public User(Long id, String name, String username,Integer role){
+
+        Role admin = new Role("admin");
+        Role normalUser = new Role("użytkownik");
+
+        this.id = id;
+        this.name = name;
+        this.username = username;
+        if(role == 1){
+            roles.add(admin);
+        } else
+        {
+            roles.add(normalUser);
+        }
+    }
 
     public User(String name, String username, String password, String passwordConfirm, Set<Role> roles) {
         this.name = name;
@@ -112,5 +135,18 @@ public class User {
 
     public void addOrder(Order order){
         this.order_list.add(order);
+    }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", username='" + username + '\'' +
+                ", password='" + password + '\'' +
+                ", passwordConfirm='" + passwordConfirm + '\'' +
+                ", roles=" + roles +
+                ", order_list=" + order_list +
+                '}';
     }
 }

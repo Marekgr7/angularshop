@@ -1,0 +1,27 @@
+<div class="container">
+    <div class="row">
+        <div class="col-sm-12">
+            <h2>Szczegóły Twojego zamówienia:</h2>
+            <table class="table">
+                <thead>
+                <tr>
+                    <th>Produkt</th>
+                    <th>Cena</th>
+                    <th>Waga</th>
+                    <th>Ilość</th>
+                    <th>Razem</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr ng-repeat="item in cartList">
+                    <td>{{item.name}}</td>
+                    <td>{{item.price}}</td>
+                    <td>{{item.weight}}</td>
+                    <td>{{item.qty}}</td>
+                    <td>{{item.price * item.qty | number:2}} zł</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

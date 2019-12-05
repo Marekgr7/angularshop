@@ -1,5 +1,8 @@
 package gryszq.dev.angularshop.security;
 
+import gryszq.dev.angularshop.model.User;
+import gryszq.dev.angularshop.service.UserServiceImpl;
+import lombok.Builder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,12 +22,15 @@ public class SecurityServiceImpl implements SecurityService{
     @Autowired
     private AuthenticationManager authenticationManager;
 
-
     @Qualifier("userDetailsServiceImpl")
     @Autowired
     private UserDetailsService userDetailsService;
 
+    @Autowired
     private static final Logger logger = LoggerFactory.getLogger(SecurityServiceImpl.class);
+
+    @Autowired
+    private UserServiceImpl userService;
 
     @Override
     public String findLoggedInUsername(){
@@ -45,6 +51,26 @@ public class SecurityServiceImpl implements SecurityService{
         if(usernamePasswordAuthenticationToken.isAuthenticated()){
             SecurityContextHolder.getContext().setAuthentication(usernamePasswordAuthenticationToken);
             logger.debug(String.format("Auto login %s successfully!",username));
+        }
+
+    }
+
+    @Override
+    public void registrationPasswordConfirmation(String password, String passConf){
+        if (!password.equals(passConf)) {
+            throw new IllegalArgumentException("hasła nie są zgodne");
+        }
+    }
+
+    @Override
+    public void findRegisteredUser(String username){
+        try {
+            User user = userService.findByUsername(username);
+            if(user.getUsername().equalsIgnoreCase(username)){
+                throw new IllegalArgumentException("Dany użytkownik już jest zarejestrowany");
+            }
+        }  catch (NullPointerException e){
+            e.printStackTrace();
         }
 
     }

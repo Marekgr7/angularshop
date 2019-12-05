@@ -19,5 +19,30 @@ public class ProductList implements Serializable {
     @ManyToOne
     private Product productId;
 
-    private int qty;
+    private Long qty;
+
+    public Order getOrderId() {
+        return orderId;
+    }
+
+    public void setOrderId(Order orderId) {
+        this.orderId = orderId;
+    }
+
+    public Product getProductId() {
+        return productId;
+    }
+
+    public void setProductId(Product productId) {
+        this.productId = productId;
+    }
+
+    public Long getQty() {
+        return qty;
+    }
+
+    public void setQty(Long qty) {
+        this.qty = qty;
+    }
 }
+

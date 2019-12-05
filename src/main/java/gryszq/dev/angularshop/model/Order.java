@@ -1,5 +1,7 @@
 package gryszq.dev.angularshop.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -18,13 +20,19 @@ public class Order {
 
     private double total;
 
-    private boolean status = false;
+    private boolean status;
 
     public Order() {
     }
 
-    public Order(User user, double total, boolean status) {
+    public Order(User user, double total) {
         this.user = user;
+        this.total = total;
+        this.status = false;
+    }
+
+    public Order(Long id, Double total, Boolean status){
+        this.id = id;
         this.total = total;
         this.status = status;
     }

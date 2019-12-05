@@ -8,22 +8,23 @@
                         <a href="#!register" class="float-right btn btn-outline-primary">Zarejestruj się</a>
                         <h4 class="card-title mb-4 mt-1">Logowanie</h4>
 <!--                        <form ng-submit="formSubmit(user)">-->
-                            <form name="f" action="/login" method="POST">
+                            <form name="f" id="loginForm" action="/login" method="POST">
 
                             <div class="form-group">
-                                <alert ng-if="!errors.login" class="alert alert-danger">Błędne Login lub hasło</alert>
+<!--                                <alert ng-if="!errors.login" class="alert alert-danger">Błędne Login lub hasło</alert>-->
                             </div>
                             <div class="form-group">
                                 <label>Email</label>
                                 <input name="username" class="form-control" placeholder="Email" type="email" ng-model="user.username">
                             </div> <!-- form-group// -->
-                            <div class="form-group">
+
+                                <div class="form-group">
                                 <label>Twoje hasło</label>
-                                <input name="password" class="form-control" placeholder="password" type="password" ng-model="user.password">
+                                <input  name="password" class="form-control" placeholder="password" type="password" ng-model="user.password">
                             </div> <!-- form-group// -->
 
                             <div class="form-group">
-                                <button type="submit" class="btn btn-primary btn-block"> Zaloguj  </button>
+                                <button ng-click="getUserId($event, user)" class="btn btn-primary btn-block"> Zaloguj  </button>
                             </div> <!-- form-group// -->
                         </form>
                     </article>

@@ -61,19 +61,24 @@ app.config(['$routeProvider','$httpProvider', function($routeProvider,$httpProvi
 
 
 
-    //Cart//
+    //Site Cart//
 
     $routeProvider.when('/cart', {
         controller : 'cartCtrl',
         templateUrl: 'partials/site/cart.html'
     });
 
-    //Orders//
+    //Site Orders//
 
     $routeProvider.when('/orders', {
-        controller: 'siteOrder',
+        controller: 'siteOrders',
         templateUrl: 'partials/site/orders.html'
     });
+
+    $routeProvider.when('/order', {
+        controller: 'siteOrder',
+        templateUrl: 'partials/site/order.html'
+    })
 
     //Login & Register //
 

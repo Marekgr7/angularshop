@@ -4,11 +4,11 @@
 
             <div class="col-sm-12">
                 <br>
-                <h2>{{product.name}}
-                <span class="label label-warning float-right"> {{product.price | number : 2 }} zł</span></h2>
+                <h2>Nazwa produktu:{{product.name}} </h2>
+                <span class="label label-warning float-right">Cena produktu: {{product.price | number : 2 }} zł</span></h2>
 
-                <p>{{product.weight}}</p> zł/kg
-                <p>{{product.description}}</p>
+                <h2>Waga produktu: {{product.weight}}</h2>
+                <h2>Opis produktu: {{product.description}}</h2>
 
 
                 <a ng-href="#!/products">Powrót</a>

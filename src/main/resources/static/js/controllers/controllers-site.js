@@ -1,7 +1,7 @@
 
 var controllersSite = angular.module('controllersSite', ['ngRoute'] );
 
-controllersAdmin.controller('siteProducts',['$scope', '$filter','$http','cartSrv', function($scope,$filter,$http,cartSrv){
+controllersSite.controller('siteProducts',['$scope', '$filter','$http','cartSrv', function($scope,$filter,$http,cartSrv){
 
 
     //TODO: CONNECT WITH API
@@ -42,51 +42,42 @@ controllersSite.controller('siteProduct',['$scope', '$filter','$http', '$routePa
 
 }]);
 
-
 controllersSite.controller('siteOrders',['$scope','$http', '$routeParams', function($scope,$http, $routeParams){
 
-    //TODO: CONNECT WITH API
+    $scope.cartList = null;
 
     $http({
         method: 'GET',
-        url: 'model/orders.json'
+        url: 'api/order/userorder'
     }).then(function successCallback(response) {
-        $scope.orders = response.data;
+        $scope.orderList = response.data;
     }, function errorCallback(response) {
         alert('blad');
     });
 
+    $http({
+        method : 'GET',
+        url: 'api/order/usercart'
+    }).then(function successCallback(response) {
+        $scope.cartList = response.data;
+    }, function errorCallback(response){
+        console.log('nie udalo sie pobrac koszyka');
+    });
 
-    //TODO : DELETE ORDERS USING API FROM DATABASE
-
-    $scope.delete = function(order, $index){
-        $scope.orders.splice($index , 1);
-    };
-
-    $scope.changeStatus = function(order, $index){
-        if(order.status == 0){
-            order.status = 1;
-        }
-        console.log(order.status);
-    };
-
+    $scope.getOrderId = function (id) {
+        controllersSite.orderId = id;
+    }
 
 }]);
 
 //Cart controllers
-controllersSite.controller('cartCtrl',['$scope','$http','cartSrv', function($scope,$http, cartSrv){
+controllersSite.controller('cartCtrl',['$scope','$http','cartSrv','usernameSrv', function($scope,$http, cartSrv,usernameSrv){
 
     $scope.cart = cartSrv.show();
-
 
     $scope.lenght = function(){
         return $scope.cart.lenght;
     };
-
-
-
-    console.log($scope.cart);
-    console.log($scope.cart.lenght);
 
     $scope.emptyCart = function () {
         $scope.cart = null;
@@ -105,8 +96,6 @@ controllersSite.controller('cartCtrl',['$scope','$http','cartSrv', function($sco
         return total;
     };
 
-    // cartSrv.show();
-
     $scope.removeItem = function ($index) {
         $scope.cart.splice($index,1);
         cartSrv.removeItem($scope.cart);
@@ -115,7 +104,6 @@ controllersSite.controller('cartCtrl',['$scope','$http','cartSrv', function($sco
     $scope.setOrder = function ($event) {
         console.log('zamowienie');
 
-        //TODO: sprawdz czy uzytkownik jest zalogowany
         var loggedIn = true;
 
         if(!loggedIn){
@@ -126,11 +114,25 @@ controllersSite.controller('cartCtrl',['$scope','$http','cartSrv', function($sco
 
         $scope.alert = {type : 'success', msg: 'Zamówienie złożone, nie odświeżaj strony... Trwa przekierowywanie do płatności '};
         $scope.emptyCart();
-        //TODO: zapisz zamowienie do bazy danych
 
         $event.preventDefault();
 
-        $('#paypalForm').submit();
+        console.log(cartSrv.show());
+
+        $scope.cartToSent = cartSrv.show();
+
+
+        $http({
+            method : 'POST',
+            url : 'api/order/cart',
+            data : $scope.cartToSent
+        }).then(function success(response) {
+            console.log('koszyk zostal wyslany poprawnie');
+        }, function error() {
+            console.log('blad nie udalo sie wyslac koszyka');
+        });
+
+        //$('#paypalForm').submit();
     };
 
     $scope.$watch(function () {
@@ -140,19 +142,20 @@ controllersSite.controller('cartCtrl',['$scope','$http','cartSrv', function($sco
 }]);
 
 //orders controllers
-
 controllersSite.controller('siteOrder',['$scope','$http', '$routeParams', function($scope,$http, $routeParams){
 
-    //TODO: CONNECT WITH API
-
+    console.log(controllersSite.orderId);
     $http({
-        method: 'GET',
-        url: 'model/orders.json'
+        method : 'GET',
+        url: 'api/order/usercart',
+        params : {
+            id : controllersSite.orderId
+        }
     }).then(function successCallback(response) {
-        $scope.orders = response.data;
-    }, function errorCallback(response) {
-        alert('blad');
+        $scope.cartList = response.data;
+        console.log($scope.cartList);
+    }, function errorCallback(response){
+        console.log('nie udalo sie pobrac szczegółów zamówienia  ');
     });
-
 
 }]);

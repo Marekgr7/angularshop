@@ -39,9 +39,12 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .loginPage("/login")
 //                .loginProcessingUrl("/authorize")
         .defaultSuccessUrl("/#!/products")
+                .failureUrl("/#!/login")
         .and()
         .logout()
         .logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
+                .logoutUrl("/logout")
+                .logoutSuccessUrl("/#!/login")
         .deleteCookies("JSESSIONID");
     }
 

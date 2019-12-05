@@ -11,10 +11,10 @@ import org.springframework.context.event.EventListener;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import java.util.HashSet;
+import java.math.BigInteger;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-import java.util.Set;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -55,6 +55,39 @@ public class UserServiceImpl implements UserService {
         userRepository.deleteById(id);
     }
 
+    @Override
+    public User findUserById(Long id){
+        return userRepository.getOne(id);
+    }
+
+
+    public List<User> findAllQuery(){
+
+//        List<Object[]> queryResult = orderRepository.findAllQuery(id);
+//
+//        List<Order> queryList = new ArrayList<>();
+//        for(Object[] obj : queryResult){
+//            BigInteger queryId = (BigInteger) obj[0];
+//            Boolean queryStatus = (Boolean) obj[1];
+//            Double queryTotal = (Double) obj[2];
+//            queryList.add(new Order(queryId.longValue(),queryTotal,queryStatus));
+//        }
+//        return queryList;
+
+        List<Object[]> queryResult = userRepository.findAllQuery();
+
+        List<User> queryList = new ArrayList<>();
+        for(Object[] obj : queryResult){
+            BigInteger queryId = (BigInteger) obj[0];
+            String queryName = (String) obj[1];
+            String queryUsername = (String) obj[2];
+            BigInteger queryRole = (BigInteger) obj[3];
+            queryList.add(new User(queryId.longValue(), queryName , queryUsername,queryRole.intValue()));
+        }
+
+        return queryList;
+    }
+
     @EventListener(ApplicationReadyEvent.class)
     public void fillDB(){
 
@@ -64,8 +97,8 @@ public class UserServiceImpl implements UserService {
         roleRepository.save(admin);
         roleRepository.save(normalUser);
 
-        User user1 = new User("marek", "Marekgr7@gmail.com", bCryptPasswordEncoder.encode("1234"), "dzikdzik");
-        User user2 = new User("paulina", "Paulina@gmail.com", bCryptPasswordEncoder.encode("1234"), "dzikdzik");
+        User user1 = new User("marek", "Marekgr7@gmail.com", bCryptPasswordEncoder.encode("1234"), "1234");
+        User user2 = new User("paulina", "Paulina@gmail.com", bCryptPasswordEncoder.encode("1234"), "1234");
 
         user1.addRole(admin);
         user2.addRole(normalUser);

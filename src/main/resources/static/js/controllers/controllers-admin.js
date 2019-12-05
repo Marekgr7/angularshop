@@ -132,7 +132,6 @@ controllersAdmin.controller('users',['$scope','$http', '$routeParams', function(
 
 }]);
 
-
 controllersAdmin.controller('userEdit',['$scope', '$filter','$http', '$routeParams', function($scope,$filter,$http, $routeParams){
 
 
@@ -155,8 +154,6 @@ controllersAdmin.controller('userEdit',['$scope', '$filter','$http', '$routePara
     });
 
 }]);
-
-
 
 controllersAdmin.controller('orders',['$scope','$http', '$routeParams', function($scope,$http, $routeParams){
 
@@ -189,24 +186,39 @@ controllersAdmin.controller('orders',['$scope','$http', '$routeParams', function
 }]);
 // LOGIN AND REGISTER CONTROLLERS
 
-controllersAdmin.controller('login', ['$scope', '$http', function ($scope , $http) {
+controllersAdmin.controller('login', ['$scope', '$http','usernameSrv', function ($scope , $http, usernameSrv) {
+
     $scope.user = {};
 
-    $scope.formSubmit = function (user) {
+    $scope.getUserId = function ($event, user) {
 
-            $http({
-                method: 'POST',
-                data: user
-            });
+        // usernameSrv.setUsername(user.username);
+        $event.preventDefault();
+        console.log("username to " + user.username);
+        $http({
+            method: 'POST',
+            url: '/api/order/setusername',
+            data: user.username
+        }).then(function successCallback(response) {
+            $('#loginForm').submit();
+        }, function errorCallback(response) {
+            console.log(response.err);
+        });
     }
 }]);
 
 controllersAdmin.controller('register', ['$scope', '$http', function ($scope , $http) {
-    //TODO : uwierzytelnic z  baza danych
+
 
     $scope.user = {};
 
+    $scope.errorName = "marek";
+
     $scope.formSubmit = function (user) {
+
+        $scope.errors = function (error){
+            return error.data.errors;
+        };
 
         console.log(user);
 
@@ -215,10 +227,15 @@ controllersAdmin.controller('register', ['$scope', '$http', function ($scope , $
             url: 'api/users',
             data : user
         }).then(function successCallback(response) {
-            alert("Produkt został dodany");
+            alert("Użytkownik został zarejestrowany");
             console.log("Zostałeś zarejestrowany !");
-        }, function errorCallback(response) {
-            console.log("error - nie udało się dodać produktu");
+        }, function errorCallback(message) {
+            $scope.errors(error);
+            $scope.alreadyRegisteredUser = message;
+            console.log($scope.alreadyRegisteredUser);
+            // $scope.error = error.data.errors[0];
+            console.log("error - nie udało się zarejestrować");
+            // console.log($scope.error);
         });
     }
 
